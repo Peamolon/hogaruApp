@@ -49,6 +49,8 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
+    
+     
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: "Post was successfully updated." }
@@ -77,6 +79,11 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
+      if params[:post][:seen] == '0'
+        params[:post][:seen] = 'No visto'
+      else
+         params[:post][:seen] = 'Visto'
+      end
       params.require(:post).permit(:content, :expire, :seen)
     end
 end
