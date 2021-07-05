@@ -1,0 +1,6 @@
+if (Notification.permission === 'granted') {
+  var title = 'Hogaru Notification'
+  var body = 'Someone created a new announcement'
+  var options = { body: body }
+  new Notification(title, options)
+}

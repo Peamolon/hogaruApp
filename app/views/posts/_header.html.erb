@@ -1,0 +1,19 @@
+ <header class="header">
+     
+      <nav>
+        <% if user_signed_in? %>
+        <ul class="header-ul" >
+            <li class= "nav-li"><%= link_to 'Create',new_post_url , :method => :get, :class => "clases" %></li>
+            <li class= "nav-li"><%= link_to 'Filter ',list_path,:method => :get, :class => "clases" %></li>  
+            <li class= "nav-li"><%= link_to 'All announcements ',posts_path,:method => :get, :class => "clases" %></li>  
+            <li class= "nav-li"><%= link_to 'Sign off ',destroy_user_session_path,:method => :delete, :class => "clases" %></li> 
+            
+        </ul>
+        <%else%>
+        <ul class="header-ul">
+            <li class= "nav-li"><%= link_to 'Login',new_user_session_path,:method => :get, :class => "clases" %></li>  
+            <li class= "nav-li"><%= link_to 'Sign up',new_user_registration_path,:method => :get, :class => "clases" %></li>  
+        </ul>
+        <%end %>
+    </nav>
+  </header>

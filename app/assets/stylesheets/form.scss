@@ -1,0 +1,90 @@
+@import "bootstrap-sprockets"; 
+@import "bootstrap";
+
+.form-div{
+    position: absolute;
+    margin-top: 30px;
+    padding: 2.5rem;
+    box-sizing: border-box;
+    background: rgba(103,237,122,0.3);
+    border-radius: 0.625rem;
+    width: 400px;
+    left: 36%;
+    
+    
+    h2{
+        margin: 0 0 1.875rem;
+        text-align: center;
+    }
+    .field-link{
+        text-align: center;
+      
+    }
+    
+    
+    
+    .field{
+       position: relative; 
+       
+       .field-check{
+           margin-left: 10px;
+       }
+       
+       .field-visto{
+           margin-top: 5px;
+       }
+       .field-input{
+           width: 100%;
+           padding: 0.625rem 0;
+           letter-spacing: 0.062rem;
+           margin-bottom: 1.875rem;
+           border: none;
+           border-bottom: 0.065rem solid #2B9FD1;
+           outline: none;
+           background: transparent;
+       }
+       
+       .field-label{
+           position: absolute;
+           top: 0;
+           padding: 0.625rem 0;
+           pointer-events: none;
+           transition: 0.5s;
+       }
+       
+       
+       .field-em{
+           padding-left: 100px;
+       }
+      
+    }
+    
+    .actions {
+        .field-submit{
+            width: 100%;
+            border: none;
+            outline: none;
+            color: white;
+            background: #03a9f4;
+            padding: 0.325rem 1.25rem;
+            cursor: pointer;
+            border-radius: 0.312rem;
+            top: 10px;
+        }
+        .field-submit:hover{
+            background-color: #181f22;
+        }
+    }
+    
+}
+
+.form-div-h1{
+    position: absolute;
+    margin-top: 30px;
+    padding: 2.5rem;
+    box-sizing: border-box;
+    background: rgb(191, 212, 240);
+    border-radius: 0.625rem;
+    width: 400px;
+    left: 36%;
+}

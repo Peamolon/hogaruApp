@@ -1,0 +1,43 @@
+@import "bootstrap-sprockets"; 
+@import "bootstrap";
+
+.div-table-announcements{
+    width: 80%;
+    justify-content: center;
+    margin-left: 140px;
+    margin-right: 200px;
+    margin-top: 60px;
+   
+    
+    .table{
+        width: 100%;
+        border-radius: 8px;
+        
+        
+    }
+    th, td{
+        padding: 8px;
+         
+    }
+    
+    thead{
+        text-align: center;
+        border-bottom: solid 5px white;
+        color: black;
+        border-radius: 8px;
+        background: rgb(205, 228, 255);
+    }
+    
+    tbody{
+        background: rgba(125, 197, 111, 0.253);
+        border-radius: 8px;
+        
+    }
+    tr:nth-child(even){
+        background: rgba(125, 197, 111, 0.259);
+        
+    }
+    tr:hover td{
+        background: rgb(191, 212, 240);
+    }
+}

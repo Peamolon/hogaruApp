@@ -23,6 +23,12 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
+     if @post.seen == '0'
+          @post.seen = 'No visto'
+    else
+         @post.seen = 'Visto'
+    end
+     @post.owner_id = current_user.id
 
     respond_to do |format|
       if @post.save
@@ -34,6 +40,12 @@ class PostsController < ApplicationController
       end
     end
   end
+  
+   def list_by_seen
+        @posts = Post.all
+        @posts_filter = Post.where("seen = ?", "No visto")
+    
+    end
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update

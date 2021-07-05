@@ -1,32 +1,33 @@
-<%= form_with(model: post) do |form| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-      <ul>
-        <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
+ <div class = "form-div">
+  <h1> <%= nombre %> announcement</h1>
+ <%= form_for(@post) do |f| %>
+ <% @post.errors.full_messages.each do |message| %>
+  <div class= "be-red">
+   * <%= message%>
+   
   </div>
-
-  <div class="field">
-    <%= form.label :expire %>
-    <%= form.date_select :expire %>
+ <% end %>
+ 
+  <%= f.label "Ride the content",:class => "field-label" %>
+  <div class = "field">
+     
+      <%= f.text_area :content, placeholder: "Contenido", :class => "field-input" %>
   </div>
-
-  <div class="field">
-    <%= form.label :seen %>
-    <%= form.text_field :seen %>
+  
+   <div class = "field">
+      <%= f.label "Seen", :class => "field-visto" %>
+      <%= f.check_box :seen, placeholder: "Seen", class:"field-check"%>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
+   <%= f.label "Expiration date",:class => "field-label" %><br>
+   <div class = "field">
+       
+      <%= f.date_select :expire, placeholder: "Seen", class:"field-input"%>
   </div>
-<% end %>
+  <br>
+    <div class = "actions">
+      <%= f.submit nombre, :class => "field-submit" %>
+   </div>
+     
+ 
+ <% end %>
+  </div>
