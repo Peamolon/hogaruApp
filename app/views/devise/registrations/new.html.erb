@@ -5,6 +5,14 @@
 <div class="form-div">
   <h2>Sign up</h2>
   <%= render "devise/shared/error_messages", resource: resource %>
+   <div class="field">
+    <%= f.label :name, :class => "field-label" %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "email", :class => "field-input" %>
+  </div>
+   <div class="field">
+    <%= f.label :lastname, :class => "field-label" %><br />
+    <%= f.text_field :lastname, autofocus: true, autocomplete: "email", :class => "field-input" %>
+  </div>
   <div class="field">
     <%= f.label :email, :class => "field-label" %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "field-input" %>
