@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
 
   # GET /posts or /posts.json
   def index
@@ -9,12 +10,26 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    if @post.seen == 'No visto'
+       @visit = Visit.new(visit_params)
+       @visit.email = current_user.email
+       @visit.post_id_id = @post.id 
+       @post.seen = "Visto"
+       @post.save
+       @visit.save
+       
+    end
   end
 
   # GET /posts/new
   def new
     @post = Post.new
   end
+  
+   def list_by_id
+        @visits = Visit.all()
+       
+   end
 
   # GET /posts/1/edit
   def edit
@@ -23,12 +38,10 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
-     if @post.seen == '0'
-          @post.seen = 'No visto'
-    else
-         @post.seen = 'Visto'
-    end
+    
+     @post.seen = 'No visto'
      @post.owner_id = current_user.id
+    
 
     respond_to do |format|
       if @post.save
@@ -41,10 +54,13 @@ class PostsController < ApplicationController
     end
   end
   
+  def list_my_post
+    @visits = Visit.where('email = ?', current_user.email)
+    @posts = Post.where('owner_id = ?', current_user.id)
+  end
+  
    def list_by_seen
-        @posts = Post.all
-        @posts_filter = Post.where("seen = ?", "No visto")
-    
+        @posts_filter = Post.where("seen = ?", "No visto").where('owner_id != ?', current_user.id) 
     end
 
   # PATCH/PUT /posts/1 or /posts/1.json
@@ -64,6 +80,12 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
+   
+    @visits = Visit.where('post_id_id = ?', @post.id)
+    
+    @visits.each do |visit|
+      visit.destroy
+    end
     @post.destroy
     respond_to do |format|
       format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
@@ -76,14 +98,13 @@ class PostsController < ApplicationController
     def set_post
       @post = Post.find(params[:id])
     end
+    
+    def visit_params
+      params.permit(:email,:post_id_id)
+    end
 
     # Only allow a list of trusted parameters through.
     def post_params
-      if params[:post][:seen] == '0'
-        params[:post][:seen] = 'No visto'
-      else
-         params[:post][:seen] = 'Visto'
-      end
-      params.require(:post).permit(:content, :expire, :seen)
+      params.require(:post).permit(:content, :expire)
     end
 end

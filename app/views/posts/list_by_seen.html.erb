@@ -15,7 +15,7 @@
 <% @posts_filter.each do |post| %>
     <tbody>
     <tr>
-        <td><%= post.content %></td>
+        <td><%= link_to post.content, post %></td>
         <td><%= post.expire %></td>
         <td><%= post.seen %></td>
         <td><%= User.find(post.owner_id).email %></td>

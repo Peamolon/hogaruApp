@@ -1,0 +1,24 @@
+<%= render "./posts/header" %>
+<h1>Deberia entrar aqui</h1>
+<div class= "div-table-announcements">
+<h1>Annoucement number <%=@post.id %> seen by</h1>
+
+<table class= "table">
+    <thead>
+    <tr>
+        <th>Email</th>
+    </tr>
+    </thead>
+
+<% @visits.each do |visit| %>
+    <tbody>
+    <tr>
+        <% if visit.post_id_id == @post.id %>
+            <td><%= visit.email %></td>
+        <% end %>
+    </tr>
+    </tbody>
+
+<% end %>
+</table>
+</div>
