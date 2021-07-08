@@ -7,29 +7,29 @@ class PostsController < ApplicationController
   def index
     @posts = Post.where('expire > ?', Date.today)
     @visits = Visit.where('user = ?', current_user.id)
-
     @posts.each do |post|
         @visitsAux = @visits.where('post_id_id = ?', post.id)
         if @visitsAux.empty?
-          post.seen = 'No visto'
+          post.seen = false
           post.save
         else 
-          post.seen = 'Visto'
+          post.seen = true
           post.save
         end
     end
+   
    
     #@posts = Post.paginate(page: params[:page])
   end
 
   # GET /posts/1 or /posts/1.json
   def show
-    if @post.seen == 'No visto'
+    if @post.seen == false
        @visit = Visit.new(visit_params)
        @visit.email = current_user.email
        @visit.post_id_id = @post.id 
        @visit.user = current_user.id
-       @post.seen = 'Visto'
+       @post.seen = true
        @visit.save
     end
     @post.save
@@ -53,7 +53,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     
-     @post.seen = 'No visto'
+     @post.seen = false
      @post.owner_id = current_user.id
     
 
@@ -79,12 +79,7 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
-    if @post.seen == '0'
-          @post.seen = 'No visto'
-    else
-         @post.seen = 'Visto'
-    end
-     
+    
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: "Post was successfully updated." }

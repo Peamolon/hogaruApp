@@ -10,7 +10,7 @@
     <div class="form-div">
     <h4><%='Content: '+ @post.content %></h4>
 
-    <h4><%= 'Seen:    '+@post.seen %></h4>
+    <h4><%= 'Seen:    '+@post.seen.to_s %></h4>
 
     <h4><%= 'Expiration date:    '+ @post.expire.to_s %></h4>
 
