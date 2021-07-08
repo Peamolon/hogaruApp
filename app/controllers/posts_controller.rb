@@ -6,6 +6,20 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @posts = Post.where('expire > ?', Date.today)
+    @visits = Visit.where('user = ?', current_user.id)
+
+    @posts.each do |post|
+        @visitsAux = @visits.where('post_id_id = ?', post.id)
+        if @visitsAux.empty?
+          post.seen = 'No visto'
+          post.save
+        else 
+          post.seen = 'Visto'
+          post.save
+        end
+    end
+   
+    #@posts = Post.paginate(page: params[:page])
   end
 
   # GET /posts/1 or /posts/1.json
@@ -14,11 +28,11 @@ class PostsController < ApplicationController
        @visit = Visit.new(visit_params)
        @visit.email = current_user.email
        @visit.post_id_id = @post.id 
-       @post.seen = "Visto"
-       @post.save
+       @visit.user = current_user.id
+       @post.seen = 'Visto'
        @visit.save
-       
     end
+    @post.save
   end
 
   # GET /posts/new
@@ -45,7 +59,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: "Post was successfully created." }
+        format.html { redirect_to posts_url, notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -65,7 +79,11 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
-    
+    if @post.seen == '0'
+          @post.seen = 'No visto'
+    else
+         @post.seen = 'Visto'
+    end
      
     respond_to do |format|
       if @post.update(post_params)
@@ -88,7 +106,7 @@ class PostsController < ApplicationController
     end
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
+      format.html { redirect_to list_my_post_url, notice: "Post was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -105,6 +123,7 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:content, :expire)
+      
+      params.require(:post).permit(:content, :expire, :seen)
     end
 end

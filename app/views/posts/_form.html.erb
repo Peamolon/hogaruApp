@@ -13,6 +13,11 @@
      
       <%= f.text_area :content, placeholder: "Contenido", :class => "field-input" %>
   </div>
+  
+   <div class = "field">
+      <%= f.label "Seen", :class => "field-visto" %>
+      <%= f.check_box :seen, placeholder: "Seen", class:"field-check"%>
+  </div>
    <%= f.label "Expiration date",:class => "field-label" %><br>
    <div class = "field">
        

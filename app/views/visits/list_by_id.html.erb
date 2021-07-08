@@ -1,5 +1,4 @@
 <%= render "./posts/header" %>
-<h1>Deberia entrar aqui</h1>
 <div class= "div-table-announcements">
 <h1>Annoucement number <%=@post.id %> seen by</h1>
 
@@ -7,6 +6,7 @@
     <thead>
     <tr>
         <th>Email</th>
+        <th>Time</th>
     </tr>
     </thead>
 
@@ -15,6 +15,7 @@
     <tr>
         <% if visit.post_id_id == @post.id %>
             <td><%= visit.email %></td>
+            <td><%= visit.created_at %></td>
         <% end %>
     </tr>
     </tbody>

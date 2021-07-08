@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_06_202624) do
+ActiveRecord::Schema.define(version: 2021_07_08_172549) do
 
   create_table "posts", force: :cascade do |t|
     t.text "content"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2021_07_06_202624) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "post_id_id", null: false
+    t.integer "user"
     t.index ["post_id_id"], name: "index_visits_on_post_id_id"
   end
 

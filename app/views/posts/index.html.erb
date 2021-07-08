@@ -10,8 +10,8 @@
             <th>Created by</th>
         </tr>
     </thead>
-
 <% @posts.each do |poster| %>
+    
     <tbody>
      <tr>
         <td><%= link_to poster.content, poster %></td>
@@ -20,7 +20,6 @@
         <td><%= poster.owner.email %></td>
     </tr> 
     </tbody>
-  
 <% end %>
 </table>
 </div>
